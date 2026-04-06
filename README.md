@@ -1,4 +1,3 @@
-# Tugas Instalasi Laravel
 Nama: Miftahul Jannah  
 NIM: 24.12.3382
 
