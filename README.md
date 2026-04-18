@@ -1,6 +1,13 @@
 Nama: Miftahul Jannah  
 NIM: 24.12.3382
 
+Tugas 2
+1. halaman dashboard : [http://127.0.0.1:8000/admin-dashboard.html](https://eventamikom3382-main-mpkwnv.free.laravel.cloud/admin)
+2. halaman event : [http://127.0.0.1:8000/admin-events.html](https://eventamikom3382-main-mpkwnv.free.laravel.cloud/admin/events-detail)
+3. halaman transaksi : [http://127.0.0.1:8000/admin-transactions.html](https://eventamikom3382-main-mpkwnv.free.laravel.cloud/admin/transactions)
+4. halaman beranda : [http://127.0.0.1:8000/](https://eventamikom3382-main-mpkwnv.free.laravel.cloud/)
+5. halaman detail : [http://127.0.0.1:8000/event-detail.html](https://eventamikom3382-main-mpkwnv.free.laravel.cloud/event-detail)
+6. halaman checkout : [http://127.0.0.1:8000/checkout.html](https://eventamikom3382-main-mpkwnv.free.laravel.cloud/checkout)
 ---
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
