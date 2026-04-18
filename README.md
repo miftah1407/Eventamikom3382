@@ -2,7 +2,7 @@ Nama: Miftahul Jannah
 NIM: 24.12.3382
 
 Tugas 2
-1. halaman dashboard : [http://127.0.0.1:8000/admin-dashboard.html](https://eventamikom3382-main-mpkwnv.free.laravel.cloud/admin)
+1. halaman dashboard :(https://eventamikom3382-main-mpkwnv.free.laravel.cloud/admin)
 2. halaman event : [http://127.0.0.1:8000/admin-events.html](https://eventamikom3382-main-mpkwnv.free.laravel.cloud/admin/events-detail)
 3. halaman transaksi : [http://127.0.0.1:8000/admin-transactions.html](https://eventamikom3382-main-mpkwnv.free.laravel.cloud/admin/transactions)
 4. halaman beranda : [http://127.0.0.1:8000/](https://eventamikom3382-main-mpkwnv.free.laravel.cloud/)
