@@ -1,6 +1,13 @@
 Nama: Miftahul Jannah  
 NIM: 24.12.3382
 
+Tugas 2
+1. halaman dashboard :https://eventamikom3382-main-mpkwnv.free.laravel.cloud/admin
+2. halaman event : https://eventamikom3382-main-mpkwnv.free.laravel.cloud/admin/events-detail
+3. halaman transaksi : https://eventamikom3382-main-mpkwnv.free.laravel.cloud/admin/transactions
+4. halaman beranda : https://eventamikom3382-main-mpkwnv.free.laravel.cloud/
+5. halaman detail : https://eventamikom3382-main-mpkwnv.free.laravel.cloud/event-detail
+6. halaman checkout : https://eventamikom3382-main-mpkwnv.free.laravel.cloud/checkout
 ---
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
