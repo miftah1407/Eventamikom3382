@@ -10,7 +10,7 @@ Tugas 2
 6. halaman checkout : https://eventamikom3382-main-mpkwnv.free.laravel.cloud/checkout
 
 Tugas 3
-link table events
+link screenshoot table events
 https://drive.google.com/file/d/1z_kbIAgE1CcfDBoE-xzGSo4Uji-q76nL/view?usp=drive_link
 
 ---
