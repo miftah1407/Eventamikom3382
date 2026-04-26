@@ -8,6 +8,11 @@ Tugas 2
 4. halaman beranda : https://eventamikom3382-main-mpkwnv.free.laravel.cloud/
 5. halaman detail : https://eventamikom3382-main-mpkwnv.free.laravel.cloud/event-detail
 6. halaman checkout : https://eventamikom3382-main-mpkwnv.free.laravel.cloud/checkout
+
+Tugas 3
+link table events
+![Uploading image.png…]()
+
 ---
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
