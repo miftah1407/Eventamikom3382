@@ -13,6 +13,9 @@ Tugas 3
 link screenshoot table events
 https://drive.google.com/file/d/1z_kbIAgE1CcfDBoE-xzGSo4Uji-q76nL/view?usp=drive_link
 
+Tugas 4
+halaman kelola events: https://eventamikom3382-main-mpkwnv.free.laravel.cloud/admin/events
+halaman CRUD : https://eventamikom3382-main-mpkwnv.free.laravel.cloud/admin/events/create
 ---
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
