@@ -1,16 +1,11 @@
 <?php
 
-
 namespace App\Models;
 
-
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Str;
 
 class Category extends Model
 {
-    //
-    public function events() {
-    return $this->hasMany(Event::class);
-}
+    protected $fillable = ['name', 'slug'];
 }
