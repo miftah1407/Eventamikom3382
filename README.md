@@ -13,7 +13,7 @@ Tugas 3
 link screenshoot table events
 https://drive.google.com/file/d/1z_kbIAgE1CcfDBoE-xzGSo4Uji-q76nL/view?usp=drive_link
 
-link repository uts : https://github.com/miftah1407/Eventamikom3382/tree/uts_24.12.3382
+link repository uts (branch ujian) : https://github.com/miftah1407/Eventamikom3382/tree/uts_24.12.3382
 ---
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
