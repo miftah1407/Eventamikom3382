@@ -87,4 +87,34 @@
             </div>
         </div>
     </section>
+    {{-- Section Partner --}}
+    <section class="max-w-7xl mx-auto px-6 py-20">
+        <div class="mb-12">
+            <h2 class="text-3xl font-extrabold mb-2">Partner Kami</h2>
+            <p class="text-slate-500 font-medium">Didukung oleh berbagai partner terpercaya.</p>
+        </div>
+
+        {{-- Daftar Kategori --}}
+        <div class="flex gap-3 flex-wrap mb-10">
+            @foreach($categories as $category)
+            <span class="px-4 py-2 bg-indigo-100 text-indigo-700 rounded-full text-sm font-bold">
+                {{ $category->name }}
+            </span>
+            @endforeach
+        </div>
+
+        {{-- Grid Partner --}}
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            @forelse($partners as $partner)
+            <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 flex flex-col items-center gap-4 hover:shadow-lg transition">
+                <img src="{{ asset('storage/' . $partner->logo_url) }}"
+                    alt="{{ $partner->name }}"
+                    class="h-16 w-auto object-contain">
+                <p class="font-bold text-slate-700 text-center">{{ $partner->name }}</p>
+            </div>
+            @empty
+            <p class="text-slate-400 col-span-4">Belum ada partner.</p>
+            @endforelse
+        </div>
+    </section>
 @endsection
