@@ -88,14 +88,14 @@
         </div>
     </section>
     {{-- Section Partner --}}
-    <section class="max-w-7xl mx-auto px-6 py-20">
-        <div class="mb-12">
-            <h2 class="text-3xl font-extrabold mb-2">Partner Kami</h2>
-            <p class="text-slate-500 font-medium">Didukung oleh berbagai partner terpercaya.</p>
-        </div>
+<section class="max-w-7xl mx-auto px-6 py-20">
+    <div class="text-center mb-12">
+        <h2 class="text-3xl font-extrabold mb-2">🤝 Partner Kami</h2>
+        <p class="text-slate-500 font-medium">Didukung oleh berbagai partner terpercaya di platform AmikomEventHub</p>
+    </div>
 
         {{-- Daftar Kategori --}}
-        <div class="flex gap-3 flex-wrap mb-10">
+        <div class="flex gap-3 flex-wrap mb-10 justify-center">
             @foreach($categories as $category)
             <span class="px-4 py-2 bg-indigo-100 text-indigo-700 rounded-full text-sm font-bold">
                 {{ $category->name }}
