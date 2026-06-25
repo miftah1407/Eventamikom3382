@@ -2,8 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CheckoutController; // 1. SUDAH DI-IMPORT AGAR TEPAT SASARAN
 use App\Http\Controllers\Admin\AuthController;
-use App\Http\Controllers\Admin\EventController;
+use App\Http\Controllers\Admin\EventController as AdminEventController; // 2. DI-ALIAS AGAR TIDAK BENTROK
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\CategoryController;
@@ -18,9 +19,14 @@ Route::get('/kontak', function(){ return view('contact'); });
 Route::get('/profil', function () { return view('profil'); });
 Route::get('/katalog', function () { return view('katalog'); });
 Route::get('/bantuan', function () { return view('bantuan'); });
-Route::get('/event-detail', [EventController::class, 'show'])->name('events.show');
-Route::get('/checkout', [EventController::class, 'checkout'])->name('checkout');
-Route::get('/my-ticket', [EventController::class, 'ticket'])->name('ticket');
+Route::get('/my-ticket', [AdminEventController::class, 'ticket'])->name('ticket');
+
+// Perbaikan Rute Detail Event Publik (Modul Halaman 81)
+Route::get('/events/{event}', [AdminEventController::class, 'show'])->name('events.show');
+
+// Rute Checkout Dinamis Tamu Tanpa Login (Modul Halaman 95)
+Route::get('/checkout/{event}', [CheckoutController::class, 'create'])->name('checkout.create');
+Route::post('/checkout/{event}', [CheckoutController::class, 'store'])->name('checkout.store');
 
 
 // ==========================================
@@ -29,7 +35,7 @@ Route::get('/my-ticket', [EventController::class, 'ticket'])->name('ticket');
 Route::prefix('admin')->name('admin.')->group(function () {
     
     // --- AUTHENTICATION (BEBAS AKSES SEBELUM LOGIN) ---
-    Route::get('login', [AuthController::class, 'showLogin'])->name('login'); // url: /admin/login
+    Route::get('login', [AuthController::class, 'showLogin'])->name('login'); 
     Route::post('login', [AuthController::class, 'login'])->name('login.post');
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
@@ -37,12 +43,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware(['auth', 'admin'])->group(function () {
         
         // Dashboard
-        Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard'); // url: /admin/dashboard
+        Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard'); 
         
         // Kelola Events (CRUD via Resource Route)
-        Route::resource('events', EventController::class);
+        Route::resource('events', AdminEventController::class);
         
-        // Laporan Transaksi
+        // Laporan Transaksi (Modul Halaman 97)
         Route::get('transactions', [TransactionController::class, 'index'])->name('transactions.index');
 
         // Category Routes (CRUD)
@@ -56,6 +62,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/partners', [PartnerController::class, 'store'])->name('partners.store');
         Route::put('/partners/{partner}', [PartnerController::class, 'update'])->name('partners.update');
         Route::delete('/partners/{partner}', [PartnerController::class, 'destroy'])->name('partners.destroy');
+        
     });
-
+    
 });
