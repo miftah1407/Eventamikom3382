@@ -1,4 +1,4 @@
-<img width="875" height="332" alt="image" src="https://github.com/user-attachments/assets/e6a38054-f186-4ef7-88ef-d00731809e19" />Nama: Miftahul Jannah  
+Nama: Miftahul Jannah  
 NIM: 24.12.3382
 
 Tugas 2
@@ -23,6 +23,8 @@ https://github.com/miftah1407/Eventamikom3382/tree/uts_24.12.3382
 Tugas 8
 https://eventamikom3382-main-mpkwnv.free.laravel.cloud/admin/login
 
+Tugas 10
+https://eventamikom3382-main-mpkwnv.free.laravel.cloud/admin/transactions
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
