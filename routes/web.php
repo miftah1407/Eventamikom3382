@@ -2,9 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\CheckoutController; // 1. SUDAH DI-IMPORT AGAR TEPAT SASARAN
+use App\Http\Controllers\CheckoutController; // Tetap di-import untuk form checkout tamu
 use App\Http\Controllers\Admin\AuthController;
-use App\Http\Controllers\Admin\EventController as AdminEventController; // 2. DI-ALIAS AGAR TIDAK BENTROK
+use App\Http\Controllers\Admin\EventController; // Digunakan bersama untuk Admin dan Publik
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\CategoryController;
@@ -19,12 +19,12 @@ Route::get('/kontak', function(){ return view('contact'); });
 Route::get('/profil', function () { return view('profil'); });
 Route::get('/katalog', function () { return view('katalog'); });
 Route::get('/bantuan', function () { return view('bantuan'); });
-Route::get('/my-ticket', [AdminEventController::class, 'ticket'])->name('ticket');
 
-// Perbaikan Rute Detail Event Publik (Modul Halaman 81)
-Route::get('/events/{event}', [AdminEventController::class, 'show'])->name('events.show');
+// Mengembalikan ke semula (Menggunakan EventController)
+Route::get('/event-detail', [EventController::class, 'show'])->name('events.show');
+Route::get('/my-ticket', [EventController::class, 'ticket'])->name('ticket');
 
-// Rute Checkout Dinamis Tamu Tanpa Login (Modul Halaman 95)
+// Rute Checkout Dinamis Tamu Tanpa Login (Pertemuan 10)
 Route::get('/checkout/{event}', [CheckoutController::class, 'create'])->name('checkout.create');
 Route::post('/checkout/{event}', [CheckoutController::class, 'store'])->name('checkout.store');
 
@@ -46,9 +46,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard'); 
         
         // Kelola Events (CRUD via Resource Route)
-        Route::resource('events', AdminEventController::class);
+        Route::resource('events', EventController::class);
         
-        // Laporan Transaksi (Modul Halaman 97)
+        // Laporan Transaksi
         Route::get('transactions', [TransactionController::class, 'index'])->name('transactions.index');
 
         // Category Routes (CRUD)
