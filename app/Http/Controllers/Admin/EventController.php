@@ -74,14 +74,8 @@ class EventController extends Controller
 
     // --- Tambahan Fungsi Show untuk Detail Event (VERSI BENAR & AMAN) ---
     public function show(Event $event) 
-    {
-        // 1. Ambil semua data event agar @foreach di blade tidak error
-        $events = Event::with('category')->latest()->get();
-
-        // 2. Ambil semua kategori untuk filter komponen halaman
-        $categories = Category::all();
-        
-        // 3. Kirim variabel $events (dengan 's') ke view admin.events.index
-        return view('admin.events.index', compact('events', 'categories'));
-    }
+{
+    $categories = Category::all();
+    return view('event-detail', compact('event', 'categories'));
+}
 }

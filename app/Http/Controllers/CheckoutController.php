@@ -2,25 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\Transaction;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class CheckoutController extends Controller
 {
+    /**
+     * Menampilkan formulir pemesanan tiket (Checkout)
+     */
     public function create(Event $event)
     {
-        // Mengambil daftar kategori untuk keperluan menu footer
-     $categories = \App\Models\Category::all();
-
-     return view('checkout.create', compact('event','categories'));
+        return view('checkout', compact('event'));
     }
 
+    /**
+     * Menyimpan data pesanan ke database & memicu token Midtrans
+     */
     public function store(Request $request, Event $event)
     {
-        // Logika pembuatan transaksi menyusul di langkah berikutnya
-        //1. Validasi Input Kredensial Pelanggan
+        // 1. Validasi Input Kredensial Pelanggan
         $request->validate([
             'customer_name' => 'required|string|max:255',
             'customer_email' => 'required|email|max:255',
@@ -29,14 +31,23 @@ class CheckoutController extends Controller
 
         // 2. Cegah Check-out Jika Tiket Habis
         if ($event->stock <= 0) {
-    return back()->with('error', 'Mohon maaf, tiket untuk acara ini sudah habis.');
+            return back()->with('error', 'Mohon maaf, tiket untuk acara ini sudah habis.');
         }
 
         // 3. Generate Kode TRX (Unik)
         $orderId = 'TRX-' . time() . '-' . Str::random(5);
         $totalPrice = $event->price + 5000; // Menambahkan biaya admin (dummy)
-// 4. Merekam Transaksi ke Database
-               // ... (Blok pembuatan Transaction::create sebelumnya)
+
+        // 4. MEREKAM TRANSAKSI KE DATABASE (Bagian ini yang sebelumnya terhapus!)
+        $transaction = Transaction::create([
+            'event_id' => $event->id,
+            'order_id' => $orderId,
+            'customer_name' => $request->customer_name,
+            'customer_email' => $request->customer_email,
+            'customer_phone' => $request->customer_phone,
+            'total_price' => $totalPrice,
+            'status' => 'Pending', // Status Awal
+        ]);
 
         // --- INTEGRASI SNAP MIDTRANS ---
         
@@ -71,20 +82,27 @@ class CheckoutController extends Controller
             
         } catch (\Exception $e) {
             return back()->with('error', 'Gagal memproses pembayaran jaringan: ' . $e->getMessage());
-        } 
-
+        }
     }
-        public function payment($order_id)
+
+    /**
+     * Menampilkan halaman transisi pop-up Midtrans
+     */
+    public function payment($order_id)
     {
          // Mengambil daftar kategori untuk keperluan menu footer
          $categories = \App\Models\Category::all();
 
          $transaction = Transaction::with('event')->where('order_id', $order_id)->firstOrFail();
-         return view('checkout.payment', compact('transaction','categories'));
+         return view('checkout.payment', compact('transaction', 'categories'));
     }
-        public function success($order_id)
+
+    /**
+     * Halaman sukses verifikasi pelunasan
+     */
+    public function success($order_id)
     {
-        // Mengambil daftar kategori untuk keperluan menu footer
+         // Mengambil daftar kategori untuk keperluan menu footer
          $categories = \App\Models\Category::all();
 
          $transaction = Transaction::where('order_id', $order_id)->firstOrFail();
@@ -105,6 +123,6 @@ class CheckoutController extends Controller
              return redirect()->route('home')->with('error', 'Transaksi tidak ditemukan atau gagal diproses oleh sistem pembayaran.');
          }
 
-         return view('checkout.success', compact('transaction','categories'));
+         return view('checkout.success', compact('transaction', 'categories'));
     }
 }

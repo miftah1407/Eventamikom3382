@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+    <!-- Hero Section -->
     <section class="max-w-7xl mx-auto px-6 py-20 flex flex-col md:flex-row items-center gap-12">
         <div class="flex-1 space-y-8">
             <span class="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-sm font-bold uppercase tracking-wider">
@@ -24,116 +25,85 @@
         <div class="flex-1 relative">
             <div class="absolute -top-10 -left-10 w-64 h-64 bg-indigo-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
             <div class="absolute -bottom-10 -right-10 w-64 h-64 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-            {{-- Menggunakan asset() agar gambar muncul stabil --}}
+            
             <img src="{{ asset('assets/concert.png') }}" alt="Concert" class="rounded-[2rem] shadow-2xl relative z-10 w-full object-cover aspect-[4/5] object-center">
+
+            <div class="absolute -bottom-6 -left-6 glass p-6 rounded-2xl shadow-xl z-20 border border-white">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-500 font-bold uppercase">Terverifikasi</p>
+                        <p class="font-bold">Pembayaran Aman via Midtrans</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
+    <!-- Events Grid -->
     <section id="events" class="max-w-7xl mx-auto px-6 py-20">
-        <div class="flex justify-between items-end mb-12">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
             <div>
                 <h2 class="text-3xl font-extrabold mb-2">Event Terdekat</h2>
                 <p class="text-slate-500 font-medium">Jangan sampai ketinggalan acara seru minggu ini!</p>
             </div>
+            <div class="flex flex-wrap gap-3">
+                <a href="{{ url('/') }}"
+                    class="p-3 border rounded-xl hover:bg-white hover:shadow-md transition font-semibold {{ request('category') ? 'bg-white text-slate-700' : 'bg-indigo-600 text-white border-indigo-600' }}">
+                    Semua Kategori
+                </a>
+                @foreach ($categories as $cat)
+                    <a href="{{ url('/?category=' . $cat->slug) }}"
+                        class="p-3 border rounded-xl hover:bg-white hover:shadow-md transition font-semibold {{ request('category') == $cat->slug ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-slate-700' }}">
+                        {{ $cat->name }}
+                    </a>
+                @endforeach
+            </div>
         </div>
 
+        <!-- Zona Menampilkan Grid List Event (Sudah Diperbaiki) -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            @php
-                // Mengambil 3 event teratas secara aman untuk dipasangkan ke asset gambar lokal
-                $event1 = $events[0] ?? null;
-                $event2 = $events[1] ?? null;
-                $event3 = $events[2] ?? null;
-            @endphp
-
-            <!-- KARTU 1: JAZZ NIGHT -->
-            <div class="group bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col justify-between">
-                <div>
-                    <div class="relative overflow-hidden aspect-[3/4]">
-                        <img src="{{ asset('assets/concert.png') }}" alt="Jazz Night" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">{{ $event1 ? $event1->title : 'Jazz Night 2024' }}</h3>
-                        <div class="flex justify-between items-center pt-4 border-t">
-                            <span class="text-2xl font-black text-indigo-600">
-                                {{ $event1 ? ($event1->price == 0 ? 'Gratis' : 'Rp ' . number_format($event1->price, 0, ',', '.')) : 'Rp 150.000' }}
-                            </span>
-                            <a href="{{ route('checkout.create', $event1 ? $event1->id : 1) }}" class="px-5 py-2 bg-indigo-50 text-indigo-600 rounded-xl font-bold hover:bg-indigo-600 hover:text-white transition">
-                                Lihat Detail
-                            </a>
+            @forelse ($events as $event)
+                <div class="group bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col justify-between">
+                    <div>
+                        <div class="relative overflow-hidden aspect-[3/4]">
+                            <img src="{{ $event->poster_path && Storage::disk('public')->exists($event->poster_path)
+                                ? asset('storage/' . $event->poster_path)
+                                : 'https://placehold.co/400x500' }}"
+                                alt="{{ $event->title }}"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <div class="absolute top-4 left-4 px-3 py-1 bg-white/90 backdrop-blur rounded-lg text-xs font-bold uppercase text-indigo-600 shadow-sm">
+                                {{ $event->category->name ?? 'Umum' }}
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2 group-hover:text-indigo-600 transition line-clamp-2">{{ $event->title }}</h3>
+                            <div class="flex items-center gap-2 text-slate-500 text-sm mb-4">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span>{{ \Carbon\Carbon::parse($event->date)->format('d M Y H:i') }}</span>
+                            </div>
+                            <div class="flex justify-between items-center pt-4 border-t border-slate-100">
+                                <span class="text-2xl font-black text-indigo-600">
+                                    Rp {{ number_format($event->price, 0, ',', '.') }}
+                                </span>
+                                <a href="{{ route('events.show', $event->id) }}"
+                                    class="px-5 py-2 bg-indigo-50 text-indigo-600 rounded-xl font-bold hover:bg-indigo-600 hover:text-white transition shadow-sm">
+                                    Lihat Detail
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- KARTU 2: AI WORKSHOP -->
-            <div class="group bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col justify-between">
-                <div>
-                    <div class="relative overflow-hidden aspect-[3/4]">
-                        <img src="{{ asset('assets/workshop.png') }}" alt="AI Workshop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">{{ $event2 ? $event2->title : 'AI & Future' }}</h3>
-                        <div class="flex justify-between items-center pt-4 border-t">
-                            <span class="text-2xl font-black text-indigo-600">
-                                {{ $event2 ? ($event2->price == 0 ? 'Gratis' : 'Rp ' . number_format($event2->price, 0, ',', '.')) : 'Rp 50.000' }}
-                            </span>
-                            <a href="{{ route('checkout.create', $event2 ? $event2->id : 2) }}" class="px-5 py-2 bg-indigo-50 text-indigo-600 rounded-xl font-bold hover:bg-indigo-600 hover:text-white transition">
-                                Lihat Detail
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- KARTU 3: HACKATHON -->
-            <div class="group bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col justify-between">
-                <div>
-                    <div class="relative overflow-hidden aspect-[3/4]">
-                        <img src="{{ asset('assets/hackathon.png') }}" alt="Hackathon" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">{{ $event3 ? $event3->title : 'Hackathon 2024' }}</h3>
-                        <div class="flex justify-between items-center pt-4 border-t">
-                            <span class="text-2xl font-black text-indigo-600">
-                                {{ $event3 ? ($event3->price == 0 ? 'Gratis' : 'Rp ' . number_format($event3->price, 0, ',', '.')) : 'Gratis' }}
-                            </span>
-                            <a href="{{ route('checkout.create', $event3 ? $event3->id : 3) }}" class="px-5 py-2 bg-indigo-50 text-indigo-600 rounded-xl font-bold hover:bg-indigo-600 hover:text-white transition">
-                                Lihat Detail
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    {{-- Section Partner --}}
-    <section class="max-w-7xl mx-auto px-6 py-20">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl font-extrabold mb-2">🤝 Partner Kami</h2>
-            <p class="text-slate-500 font-medium">Didukung oleh berbagai partner terpercaya di platform AmikomEventHub</p>
-        </div>
-
-        {{-- Daftar Kategori --}}
-        <div class="flex gap-3 flex-wrap mb-10 justify-center">
-            @foreach($categories as $category)
-            <span class="px-4 py-2 bg-indigo-100 text-indigo-700 rounded-full text-sm font-bold">
-                {{ $category->name }}
-            </span>
-            @endforeach
-        </div>
-
-        {{-- Grid Partner --}}
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-            @forelse($partners as $partner)
-            <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 flex flex-col items-center gap-4 hover:shadow-lg transition">
-                <img src="{{ asset('storage/' . $partner->logo_url) }}"
-                    alt="{{ $partner->name }}"
-                    class="h-16 w-auto object-contain">
-                <p class="font-bold text-slate-700 text-center">{{ $partner->name }}</p>
-            </div>
             @empty
-            <p class="text-slate-400 col-span-4 text-center">Belum ada partner.</p>
+                <div class="col-span-full text-center py-12 text-slate-400 font-medium">
+                    Tidak ada event aktif yang ditemukan untuk saat ini.
+                </div>
             @endforelse
         </div>
     </section>

@@ -2,9 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\CheckoutController; // Tetap di-import untuk form checkout tamu
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\Admin\AuthController;
-use App\Http\Controllers\Admin\EventController; // Digunakan bersama untuk Admin dan Publik
+use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\CategoryController;
@@ -15,19 +15,20 @@ use App\Http\Controllers\PartnerController;
 // ==========================================
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/tentang', function () { return '<h1>Tentang</h1>'; });
-Route::get('/kontak', function(){ return view('contact'); });
+Route::get('/kontak', function() { return view('contact'); });
 Route::get('/profil', function () { return view('profil'); });
 Route::get('/katalog', function () { return view('katalog'); });
 Route::get('/bantuan', function () { return view('bantuan'); });
 
-// Mengembalikan ke semula (Menggunakan EventController)
-Route::get('/event-detail', [EventController::class, 'show'])->name('events.show');
+// Halaman Publik Event
+Route::get('/events/{event}', [EventController::class, 'show'])->name('events.show');
 Route::get('/my-ticket', [EventController::class, 'ticket'])->name('ticket');
 
-// Rute Checkout Dinamis Tamu Tanpa Login (Pertemuan 10)
+// Rute Checkout & Jalur Pembayaran Midtrans (Akses Publik)
 Route::get('/checkout/{event}', [CheckoutController::class, 'create'])->name('checkout.create');
 Route::post('/checkout/{event}', [CheckoutController::class, 'store'])->name('checkout.store');
-
+Route::get('/payment/{order_id}', [CheckoutController::class, 'payment'])->name('checkout.payment');
+Route::get('/success/{order_id}', [CheckoutController::class, 'success'])->name('checkout.success');
 
 // ==========================================
 // 2. --- RUTE SISI ADMIN AREA ---
@@ -64,5 +65,4 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::delete('/partners/{partner}', [PartnerController::class, 'destroy'])->name('partners.destroy');
         
     });
-    
 });
