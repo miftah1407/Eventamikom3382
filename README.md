@@ -1,6 +1,8 @@
 Nama: Miftahul Jannah  
 NIM: 24.12.3382
 
+link repo newamikomeventhub3382 : https://github.com/miftah1407/newamikomeventhub3382
+
 Tugas 2
 1. halaman dashboard :https://eventamikom3382-main-mpkwnv.free.laravel.cloud/admin
 2. halaman event : https://eventamikom3382-main-mpkwnv.free.laravel.cloud/admin/events-detail
@@ -22,6 +24,9 @@ https://github.com/miftah1407/Eventamikom3382/tree/uts_24.12.3382
 
 Tugas 8
 https://eventamikom3382-main-mpkwnv.free.laravel.cloud/admin/login
+
+Tugas 10
+https://eventamikom3382-main-mpkwnv.free.laravel.cloud/admin/transactions
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
