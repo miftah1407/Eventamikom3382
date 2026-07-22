@@ -12,9 +12,14 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         
-        // PASTIKAN BLOK ALIAS INI ADA DAN TIDAK SALAH KETIK
+        // 1. Mendaftarkan alias middleware admin untuk proteksi halaman dashboard
         $middleware->alias([
             'admin' => \App\Http\Middleware\AdminMiddleware::class,
+        ]);
+
+        // 2. Mengecualikan route webhook Midtrans dari blokir CSRF Token
+        $middleware->validateCsrfTokens(except: [
+            '/midtrans/callback',
         ]);
 
     })

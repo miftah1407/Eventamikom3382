@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\MidtransWebhookController; // Ditambahkan import namespace
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -29,6 +30,9 @@ Route::get('/checkout/{event}', [CheckoutController::class, 'create'])->name('ch
 Route::post('/checkout/{event}', [CheckoutController::class, 'store'])->name('checkout.store');
 Route::get('/payment/{order_id}', [CheckoutController::class, 'payment'])->name('checkout.payment');
 Route::get('/success/{order_id}', [CheckoutController::class, 'success'])->name('checkout.success');
+
+// RUTE KEBUTUHAN CALLBACK MIDTRANS (Ditambahkan sesuai modul)
+Route::post('/midtrans/callback', [MidtransWebhookController::class, 'handle']);
 
 // ==========================================
 // 2. --- RUTE SISI ADMIN AREA ---
